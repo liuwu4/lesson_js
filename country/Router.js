@@ -12,8 +12,25 @@ const init = axios.create({
   responseType: 'stream'
 });
 app.use(express.static(process.cwd()));
-app.get('/provinces', async (_req, res) => {
+app.get('/provinces', async (req, res) => {
   init({ method: 'get', url: '' }).then((response) => {
+    let ary = [];
+    response.data.on('data', (data) => {
+      ary.push(data);
+    });
+    response.data.on('end', () => {
+      const result = Buffer.concat(ary);
+      const str = iconv.decode(result, 'gbk');
+      res.send(str);
+    });
+  });
+});
+app.get('/:code', async (req, res) => {
+  console.log(req.params);
+  const {
+    params: { code }
+  } = req;
+  init({ method: 'get', url: `${code}.html` }).then((response) => {
     let ary = [];
     response.data.on('data', (data) => {
       ary.push(data);
