@@ -1,30 +1,27 @@
-const express = require("express");
-const fs = require("fs");
-const iconv = require("iconv-lite");
+const express = require('express');
 const app = express();
+const iconv = require('iconv-lite');
 const port = 3000;
-const axios = require("axios");
-const { extractProvincetr } = require("./Include");
-
+const axios = require('axios');
 const base = `http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/`;
 const init = axios.create({
   baseURL: base,
   headers: {
-    Accept: "text/html",
+    Accept: 'text/html'
   },
-  responseType: "stream",
+  responseType: 'stream'
 });
-app.use(express.static("index.html"));
-app.get("/", async (req, res) => {
-  init({ method: "get", url: "" }).then((response) => {
+app.use(express.static(process.cwd()));
+app.get('/provinces', async (_req, res) => {
+  init({ method: 'get', url: '' }).then((response) => {
     let ary = [];
-    response.data.on("data", (data) => {
+    response.data.on('data', (data) => {
       ary.push(data);
     });
-    response.data.on("end", () => {
+    response.data.on('end', () => {
       const result = Buffer.concat(ary);
-      const str = iconv.decode(result, "gbk");
-      res.send(extractProvincetr(str));
+      const str = iconv.decode(result, 'gbk');
+      res.send(str);
     });
   });
 });
