@@ -25,12 +25,8 @@ app.get('/provinces', async (req, res) => {
     });
   });
 });
-app.get('/:code', async (req, res) => {
-  console.log(req.params);
-  const {
-    params: { code }
-  } = req;
-  init({ method: 'get', url: `${code}.html` }).then((response) => {
+app.get('(/:code)+', async (req, res) => {
+  init({ method: 'get', url: `${req.url}.html` }).then((response) => {
     let ary = [];
     response.data.on('data', (data) => {
       ary.push(data);

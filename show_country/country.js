@@ -1,43 +1,61 @@
 // [\u4e00-\u9fa5] 中文
 const ajax = new XMLHttpRequest();
-
 function start(path) {
   ajax.open('get', path);
   ajax.send();
   ajax.onreadystatechange = function () {
     if (ajax.readyState === 4 && ajax.status === 200) {
       const result = ajax.responseText;
-      const provinces = /(<tr\sclass='(provincetr|citytr)'>.+)/g;
-      const content = /([0-9/]+\.html|[\u4e00-\u9fa5]+)/g;
-      const tdText = /[0-9/]+\.html['>]+(?:[\u4e00-\u9fa5]+)/g;
+      const provinces = /(<tr\sclass='(provincetr|citytr|countytr|towntr|villagetr|villagetable)'>.+)/g;
+      const content = /([0-9]+(?=\/)|[0-9]+(?=\.html)|[\u4e00-\u9fa5]+)/g;
+      const tdText = /[0-9/]+(\.html)?['>]+(?:[\u4e00-\u9fa5]+)/g;
+      const lastLevel = /(<tr\s[a-z='>]+[<a-z0-9\u4e00-\u9fa5>/]+)/g;
       const trItem = result.match(provinces);
       let tdItem = [];
       trItem.forEach((item) => {
-        tdItem = item.match(tdText).reduce((pre, next) => {
-          const tmp = {};
-          console.log(next);
-          const nextItem = next.match(content);
-          Object.assign(tmp, {
-            code: `${nextItem[0].match(/([0-9]+)/g)}`,
-            name: nextItem[1]
+        if (/villagetr/.test(item)) {
+          tdItem = item.match(lastLevel).map((item) => {
+            const pattern = /([0-9\u4e00-\u9fa5]+)/g;
+            const result = item.match(pattern);
+            return { code: result[0], name: result[2], category: result[1] };
           });
-          return [...pre, tmp];
-        }, []);
+        } else {
+          tdItem = item.match(tdText).reduce((pre, next) => {
+            const tmp = {};
+            const nextItem = next.match(content);
+            const routes = next.match(/[0-9]+(?:\.html)/g);
+            const code = `${routes}`.match(/([0-9]{2}([0-9](?=\.html))?)/g);
+            const last = nextItem.pop();
+            let url = code;
+            if (code.length !== 1) {
+              code.pop();
+              url = code.join('/') + '/' + nextItem[nextItem.length - 1];
+            }
+            Object.assign(tmp, {
+              code: `${url}`,
+              name: last
+            });
+            return [...pre, tmp];
+          }, []);
+        }
       });
       findRoot(tdItem);
     }
   };
 }
+
 function findRoot(data) {
   const node = document.getElementById('root');
   data.forEach((item) => {
     const childNode = document.createElement('div');
     childNode.setAttribute('class', 'ele');
+    childNode.setAttribute('title', item.code);
     childNode.onclick = function () {
-      start(item.code);
+      start(`${item.code}`);
     };
-    childNode.innerText = item.name;
+    childNode.innerText = `${item.code}-${item.name}`;
     node.appendChild(childNode);
   });
 }
+
 start('provinces');
