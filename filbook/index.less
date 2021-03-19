@@ -1,0 +1,125 @@
+* {
+  margin : 0;
+  padding: 0;
+}
+
+#radious {
+  border-radius: 4px;
+}
+
+@keyframes turn {
+  0% {
+    transform: rotateY(0deg) translateX(0);
+  }
+
+  20% {
+    transform: rotateY(36deg) translateX(0);
+  }
+
+  40% {
+    transform: rotateY(72deg) translateX(0);
+  }
+
+  60% {
+    transform: rotateY(108deg) translateX(0);
+  }
+
+  80% {
+    transform: rotateY(144) translateX(0);
+  }
+
+  100% {
+    transform: rotateY(180deg) translateX(0);
+  }
+}
+
+#root {
+  margin  : 10px auto;
+  width   : 80%;
+  overflow: hidden;
+
+  &>.start {
+    border: 1px solid #f24;
+    width : 80px;
+    #radious();
+    text-align: center;
+    cursor    : pointer;
+  }
+
+  &>#animate {
+    height          : 200px;
+    width           : 300px;
+    margin          : 20px 200px;
+    background-color: #f24;
+  }
+
+  &>.start-animated {
+    transform-origin: left;
+    animation       : turn 1s linear forwards;
+  }
+
+  &>header {
+    overflow: hidden;
+
+    &>ul>li {
+      margin : 10px;
+      padding: 0 10px;
+      #radious();
+      box-sizing: border-box;
+      border    : 1px solid #f24;
+      list-style: none;
+      float     : left;
+      cursor    : pointer;
+    }
+  }
+
+  &>.layout {
+    position  : relative;
+    height    : 400px;
+    width     : 100%;
+    box-sizing: border-box;
+    border    : 1px solid #f24;
+    overflow  : hidden;
+
+    &>.book {
+      position        : absolute;
+      left            : 50%;
+      top             : 0;
+      transform-origin: left;
+      width           : 50%;
+      height          : 100%;
+      box-sizing      : border-box;
+      transform-style : preserve-3d;
+    }
+
+    &>#page1 {
+      z-index         : 5;
+      background-color: #c55;
+    }
+
+    &>#page2 {
+      z-index         : 4;
+      background-color: rgb(191, 224, 114);
+    }
+
+    &>#page3 {
+      z-index         : 3;
+      background-color: rgb(207, 136, 144);
+    }
+
+    &>#page4 {
+      z-index         : 2;
+      background-color: rgb(93, 52, 57);
+    }
+
+    &>#page5 {
+      z-index         : 1;
+      background-color: rgb(81, 66, 168);
+    }
+
+    &>#page6 {
+      z-index         : 0;
+      background-color: rgb(101, 241, 101);
+    }
+  }
+}
