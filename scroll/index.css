@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#app {
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 400px;
+  height: 400px;
+  background-color: rgb(172, 170, 161);
+}
+
+#container {
+  height: 100%;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+  background-color: antiquewhite;
+}
+#content {
+  position: relative;
+}
+#scroll {
+  display: none;
+  position: absolute;
+  right: 0;
+  width: 20px;
+  height: 95%;
+  z-index: 9999;
+}
+#scroll > #scroll-blok {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  height: 50px;
+  width: 95%;
+  z-index: 9999;
+  background-color: rgb(155, 151, 151);
+}
