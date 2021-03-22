@@ -1,4 +1,6 @@
 let animate = null;
+const ary = [1, 2];
+const obj = { test: 1, none: 1 };
 let time = new Date().getTime();
 function start(event, page) {
   const allPage = document.querySelectorAll('.book');

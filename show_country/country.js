@@ -15,9 +15,7 @@ function findRoot(data) {
   let node = document.getElementById('root');
   const [keys] = Object.keys(data);
   data[keys].forEach((item) => {
-    const area = `${keys} ${keys}-${
-      keys === 'provincetr' ? item.code : item.parent_code
-    }`;
+    const area = `${keys} ${keys}-${keys === 'provincetr' ? item.code : item.parent_code}`;
     const className = `${area} ${keys !== 'villagetr' ? 'cursor' : ''}`;
     const childNode = document.createElement('div');
     childNode.setAttribute('class', className);
@@ -61,7 +59,7 @@ function rules(result) {
         Object.assign(tmp, {
           code: `${url}`,
           parent_code: code.join(''),
-          name: last
+          name: last,
         });
         return [...pre, tmp];
       }, []);

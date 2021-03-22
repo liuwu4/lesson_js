@@ -15,7 +15,7 @@ function transform(parentCode, result) {
           code: result[0],
           name: result[2],
           parent_code: parentCode,
-          category: result[1]
+          category: result[1],
         };
       });
     } else {
@@ -33,7 +33,7 @@ function transform(parentCode, result) {
         Object.assign(tmp, {
           code: `${url}`,
           parent_code: parentCode,
-          name: last
+          name: last,
         });
         return [...pre, tmp];
       }, []);
@@ -44,5 +44,5 @@ function transform(parentCode, result) {
 }
 
 module.exports = {
-  transform
+  transform,
 };

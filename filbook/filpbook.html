@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>filpbook</title>
+    <link rel="stylesheet/less" type="text/css" href="/filbook/index.less" />
+    <script src="/libs/less/less.js"></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>filpbook</title>
-  <link rel="stylesheet/less" type="text/css" href="/filbook/index.less" />
-  <script src="/libs/less/less.js"></script>
-</head>
-
-<body>
-  <div id="root">
-    <header>
-      <ul>
-        <li>第一页</li>
-        <li>第二页</li>
-        <li>第三页</li>
-        <li>第四页</li>
-        <li>第五页</li>
-        <li>第六页</li>
-      </ul>
-    </header>
-    <div class="start" onclick="startAnimated(this)">start</div>
-    <div class='start' onclick="resetAnimated(this)">复原</div>
-    <div id='animate'>测试动画</div>
-    <div class="layout">
-      <div id="page1" class="book" onclick="start(this, 1)">第一页</div>
-      <div id="page2" class="book" onclick="start(this, 2)">第二页</div>
-      <div id="page3" class="book" onclick="start(this, 3)">第三页</div>
-      <div id="page4" class="book" onclick="start(this, 4)">第四页</div>
-      <div id="page5" class="book" onclick="start(this, 5)">第五页</div>
-      <div id="page6" class="book" onclick="start(this, 6)">第六页</div>
+  <body>
+    <div id="root">
+      <header>
+        <ul>
+          <li>第一页</li>
+          <li>第二页</li>
+          <li>第三页</li>
+          <li>第四页</li>
+          <li>第五页</li>
+          <li>第六页</li>
+        </ul>
+      </header>
+      <div class="start" onclick="startAnimated(this)">start</div>
+      <div class="start" onclick="resetAnimated(this)">复原</div>
+      <div id="animate">测试动画</div>
+      <div class="layout">
+        <div id="page1" class="book" onclick="start(this, 1)">第一页</div>
+        <div id="page2" class="book" onclick="start(this, 2)">第二页</div>
+        <div id="page3" class="book" onclick="start(this, 3)">第三页</div>
+        <div id="page4" class="book" onclick="start(this, 4)">第四页</div>
+        <div id="page5" class="book" onclick="start(this, 5)">第五页</div>
+        <div id="page6" class="book" onclick="start(this, 6)">第六页</div>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 
-<script src="https://d3js.org/d3.v5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
-<script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
-<script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
-<script src="/filbook/index.js"></script>
-<!-- <script src="./d3/index.js"></script> -->
-<!-- <script src="./show_country/country.js"></script> -->
-
+  <script src="https://d3js.org/d3.v5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+  <script src="https://unpkg.com/dayjs@1.8.21/plugin/utc.js"></script>
+  <script src="/filbook/index.js"></script>
+  <!-- <script src="./d3/index.js"></script> -->
+  <!-- <script src="./show_country/country.js"></script> -->
 </html>

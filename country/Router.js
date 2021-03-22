@@ -11,7 +11,7 @@ const db = {
   countytr: 'area',
   towntr: 'town',
   villagetr: 'village',
-  villagetable: 'village_table'
+  villagetable: 'village_table',
 };
 const parent = {
   provincetr: 'province',
@@ -19,26 +19,24 @@ const parent = {
   countytr: 'city',
   towntr: 'area',
   villagetr: 'town',
-  villagetable: 'village'
+  villagetable: 'village',
 };
 const base = `http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2020/`;
 const init = axios.create({
   baseURL: base,
   headers: {
-    Accept: 'text/html'
+    Accept: 'text/html',
   },
-  responseType: 'stream'
+  responseType: 'stream',
 });
 app.use(express.static(process.cwd()));
 app.get('(/:code)+', (req, res) => {
   const {
-    params: { code }
+    params: { code },
   } = req;
-  init({ method: 'get', url: +code !== 0 ? `${req.url}.html` : '' }).then(
-    (response) => {
-      send(code, res, response);
-    }
-  );
+  init({ method: 'get', url: +code !== 0 ? `${req.url}.html` : '' }).then((response) => {
+    send(code, res, response);
+  });
 });
 
 function send(parentCode, res, axiosResponse) {
@@ -65,11 +63,7 @@ function insertDb(data) {
     ${parentId}=values(${parentId}),
     ${tableName}_name = values(${tableName}_name)
   `;
-  let values = data[keys].map((item) => [
-    item.code.match(/[0-9]+/g).pop(),
-    item.name,
-    item.parent_code
-  ]);
+  let values = data[keys].map((item) => [item.code.match(/[0-9]+/g).pop(), item.name, item.parent_code]);
   if (tableName === 'village_table') {
     insert = `
       insert into ${tableName}(id, ${tableName}_name, ${parentId}, code)
@@ -79,12 +73,7 @@ function insertDb(data) {
       ${parentId}=values(${parentId}),
       ${tableName}_name = values(${tableName}_name)
     `;
-    values = data[keys].map((item) => [
-      item.code.match(/[0-9]+/g).pop(),
-      item.name,
-      item.parent_code,
-      item.category
-    ]);
+    values = data[keys].map((item) => [item.code.match(/[0-9]+/g).pop(), item.name, item.parent_code, item.category]);
   }
   mysql.query(insert, [values], queryCallback);
 }
