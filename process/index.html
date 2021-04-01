@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>process</title>
+    <link rel="stylesheet/less" type="text/css" href="./index.less" />
+    <script src="/libs/less/less.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <div class="column">
+        <spain>圆形</spain>
+        <div class="circle"></div>
+      </div>
+      <div class="column">
+        <spain>矩形</spain>
+        <div class="speed"></div>
+      </div>
+    </div>
+    <script>
+      const val = 100 / 10;
+      const obj = {};
+      [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].forEach((item) => {
+        Object.assign(obj, {
+          [`${10 * item}%`]: { width: `${item * 10}%` }
+        });
+      });
+      console.log(JSON.stringify(obj));
+    </script>
+  </body>
+</html>
